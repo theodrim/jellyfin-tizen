@@ -1,4 +1,4 @@
 *.wgt
 www
-.*
+.vscode
 node_modules
