@@ -57,7 +57,7 @@ On the TV:
 
     tizen@6ca8b1e3dbe1:~$ cd /output/
 
-    tizen@6ca8b1e3dbe1:/output$ tizen install -n Jellyfin.wgt -t UA43TU8500SXNZ
+    tizen@6ca8b1e3dbe1:/output$ tizen install -n Jellyfin.wgt -t UA63TU3300TX
     Transferring the package...
 
 

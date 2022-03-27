@@ -1,5 +1,6 @@
 #!/bin/bash
 
+find /github
 export PATH=$PATH:/tizen/tizen-studio/tools/ide/bin
 tizen certificate -a Jellyfin -p 1234 -c NZ -s Auckland -ct Auckland -o Tizen -n Jellyfin -e jellyfin@example.org -f tizencert
 tizen security-profiles add -n Jellyfin -a /tizen/tizen-studio-data/keystore/author/tizencert.p12 -p 1234
@@ -14,4 +15,6 @@ tizen build-web -e ".*" -e "docker/*" -e gulpfile.js -e README.md -e "node_modul
 
 if [ -e /github/workspace ]; then
   cp -a /output/* /github/workspace
+else
+  echo "No github workspace found"
 fi
