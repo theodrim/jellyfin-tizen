@@ -19,14 +19,12 @@ jobs:
           context: docker
           tags: jellyfin-tizen-build:latest
           push: false
-      - uses: addnab/docker-run-action@v3
-        with:
-          image: jellyfin-tizen-build:latest
-          options: -v ${{ github.workspace }}/output:/output:rw
-          run: /tizen/package.sh
+      - name: Copy wgt file to build directory
+        run: docker cp jellyfin-tizen-build:/output/Jellyfin.wgt .
       - uses: actions/upload-artifact@v3
         with:
           name: Jellyfin-Tizen-Build
-          path: ${{ github.workspace }}/output/Jellyfin.wgt
+          path: ./Jellyfin.wgt
+
 
 

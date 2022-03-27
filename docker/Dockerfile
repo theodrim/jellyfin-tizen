@@ -41,9 +41,11 @@ RUN useradd tizen --home-dir /tizen && \
 
 USER tizen
 
+VOLUME ["/output"]
+
 RUN ./web-cli_Tizen_Studio_4.5.1_ubuntu-64.bin --accept-license /tizen/tizen-studio && \
     rm ./web-cli_Tizen_Studio_4.5.1_ubuntu-64.bin && \
-    echo 'export PATH=$PATH:/tizen/tizen-studio/tools/ide/bin' >> .bashrc
+    echo 'export PATH=$PATH:/tizen/tizen-studio/tools/ide/bin' >> .bashrc && \
+    /tizen/package.sh
 
-VOLUME ["/output"]
-CMD /tizen/package.sh
+CMD /bin/bash
