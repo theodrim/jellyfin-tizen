@@ -11,3 +11,7 @@ chmod 755 /tizen/tizen-studio-data/profile/profiles.xml
 cd /tizen/jellyfin-tizen
 tizen build-web -e ".*" -e "docker/*" -e gulpfile.js -e README.md -e "node_modules/*" -e "package*.json" -e "yarn.lock"
 /tizen/expect_script
+
+if [ -e /github/workspace ]; then
+  cp -a /output/* /github/workspace
+fi
