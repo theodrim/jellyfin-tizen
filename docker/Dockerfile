@@ -1,5 +1,5 @@
 ## Build jellyfin-web
-FROM node:14
+FROM node:16
 
 ENV JELLYFIN_WEB_URL=https://github.com/jellyfin/jellyfin-web/archive/refs/heads/master.tar.gz
 ENV JELLYFIN_TIZEN_URL=https://github.com/jellyfin/jellyfin-tizen/archive/refs/heads/master.tar.gz
@@ -32,20 +32,21 @@ COPY --from=0 /jellyfin/jellyfin-tizen ./jellyfin-tizen
 COPY package.sh /tizen/package.sh
 COPY expect_script /tizen/expect_script
 
+VOLUME ["/output"]
+
 RUN useradd tizen --home-dir /tizen && \
-    chmod +x ${TIZEN_STUDIO_FILE} && \
     chown -R tizen:tizen ./ && \
+    chmod +x ${TIZEN_STUDIO_FILE} && \
+    mkdir -p /output && \
+    chown -R tizen:tizen /output && \
+    chmod +w /output && \
     apt-get update \
     && apt-get install -y expect zip \
     && rm -rf /var/lib/apt/lists/*
 
 USER tizen
 
-VOLUME ["/output"]
-
 RUN ./web-cli_Tizen_Studio_4.5.1_ubuntu-64.bin --accept-license /tizen/tizen-studio && \
-    rm ./web-cli_Tizen_Studio_4.5.1_ubuntu-64.bin && \
-    echo 'export PATH=$PATH:/tizen/tizen-studio/tools/ide/bin' >> .bashrc && \
-    /tizen/package.sh
+    rm ./web-cli_Tizen_Studio_4.5.1_ubuntu-64.bin
 
-CMD /bin/bash
+CMD /tizen/package.sh

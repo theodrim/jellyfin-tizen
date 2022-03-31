@@ -13,18 +13,25 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-
+      - name: Create folder
+        run: |
+          mkdir -p ${{ github.workspace }}/output
+          chmod 777 ${{ github.workspace }}/output
       - uses: docker/build-push-action@v2
         with:
           context: docker
           tags: jellyfin-tizen-build:latest
           push: false
-      - name: Copy wgt file to build directory
-        run: docker cp jellyfin-tizen-build:/output/Jellyfin.wgt .
+      - uses: addnab/docker-run-action@v3
+        with:
+          image: jellyfin-tizen-build:latest
+          options: -v ${{ github.workspace }}/output:/output
+          run: /tizen/package.sh
       - uses: actions/upload-artifact@v3
         with:
           name: Jellyfin-Tizen-Build
-          path: ./Jellyfin.wgt
-
-
+          path: ${{ github.workspace }}/output/Jellyfin.wgt
+      - name: Show files in directories
+        run: |
+          find ${{ github.workspace }}
 
