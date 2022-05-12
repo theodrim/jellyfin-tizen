@@ -1,7 +1,7 @@
 <h1 align="center">Jellyfin for Tizen</h1>
 <h3 align="center">Part of the <a href="https://jellyfin.media">Jellyfin Project</a></h3>
 
-## Build Process 
+## Build Process
 _Also look [Wiki](https://github.com/jellyfin/jellyfin-tizen/wiki)._
 
 ### Prerequisites
